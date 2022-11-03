@@ -1,5 +1,5 @@
 import { AsyncPaginate } from "react-select-async-paginate";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 const Search = (props) => {
   const [moviePoster, setMoviePoster] = useState();
 
@@ -7,7 +7,9 @@ const Search = (props) => {
     setMoviePoster(searchData.poster);
     props.movie(searchData.value);
   };
-  props.moviePoster(moviePoster);
+  useEffect(() => {
+    props.moviePoster(moviePoster);
+  }, [moviePoster]);
   async function loadOptions(inputValue, loadedOptions) {
     const response = await fetch(
       `https://api.themoviedb.org/3/search/movie?api_key=6559e762214c07e8a918a15e06f0b17e&query=${inputValue}`
